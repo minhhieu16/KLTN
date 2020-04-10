@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2020 at 08:39 AM
+-- Generation Time: Apr 10, 2020 at 02:07 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -49,6 +49,14 @@ CREATE TABLE `detail_timesheet` (
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `detail_timesheet`
+--
+
+INSERT INTO `detail_timesheet` (`id_detail`, `id_timesheet`, `id_project`, `id_task`, `id_user`, `date_mon`, `time_mon`, `date_tue`, `time_tue`, `date_wed`, `time_wed`, `date_thu`, `time_thu`, `date_fri`, `time_fri`, `date_sat`, `time_sat`, `date_sun`, `time_sun`, `is_active`) VALUES
+(1, 1, 1, 1, 1, '2020-04-06', 0, '2020-04-07', 0, '2020-04-08', 0, '2020-04-09', 0, '2020-04-10', 0, '2020-04-11', 0, '2020-04-12', 0, 1),
+(2, 1, 1, 3, 1, '2020-04-06', 0, '2020-04-07', 0, '2020-04-08', 0, '2020-04-09', 0, '2020-04-10', 0, '2020-04-11', 0, '2020-04-12', 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +69,14 @@ CREATE TABLE `project` (
   `id_user_project` int(11) NOT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `project`
+--
+
+INSERT INTO `project` (`id_project`, `name_project`, `id_user_project`, `is_active`) VALUES
+(1, 'RoR Internship Training Program', 2, 1),
+(2, 'BESTARION Website', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -75,6 +91,27 @@ CREATE TABLE `task` (
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `task`
+--
+
+INSERT INTO `task` (`id_task`, `id_project`, `name_task`, `is_active`) VALUES
+(1, 1, 'Beyond the Rails basics', 1),
+(2, 1, 'Case study 1: build an full Rails web application', 1),
+(3, 1, 'Build an Rails web application to resolve a real problem', 1),
+(4, 1, 'Internship Program Feb_2020', 1),
+(5, 1, 'Perform training & supporting & coaching', 1),
+(6, 1, 'Review & evaluation', 1),
+(7, 1, 'Teem Meeting', 1),
+(8, 1, 'Theory test', 1),
+(9, 2, 'Application fields', 1),
+(10, 2, 'Blog', 1),
+(11, 2, 'Client testimonials', 1),
+(12, 2, 'Contact Us - After submitting email, it refreshes the page without any message', 1),
+(13, 2, 'Our Team', 1),
+(14, 2, 'Success stories', 1),
+(15, 2, 'Taọ một trang Thank you page sau khi submit thông tin ở phần Contact us ', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -86,13 +123,20 @@ CREATE TABLE `timesheet` (
   `id_user` int(11) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `approved_by` int(11) NOT NULL,
-  `date_modified` datetime NOT NULL,
-  `note` text COLLATE utf8_unicode_ci NOT NULL,
-  `rejected_by` int(11) NOT NULL,
+  `approved_by` int(11) DEFAULT NULL,
+  `date_modified` datetime DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `rejected_by` int(11) DEFAULT NULL,
   `total_time` int(11) NOT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `timesheet`
+--
+
+INSERT INTO `timesheet` (`id_timesheet`, `id_user`, `start_date`, `end_date`, `approved_by`, `date_modified`, `note`, `rejected_by`, `total_time`, `is_active`) VALUES
+(1, 1, '2020-04-06', '2020-04-12', NULL, NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -102,7 +146,7 @@ CREATE TABLE `timesheet` (
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
-  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `first_name` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -111,6 +155,19 @@ CREATE TABLE `user` (
   `failed_login` int(3) DEFAULT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `password`, `first_name`, `last_name`, `role`, `last_login`, `failed_login`, `is_active`) VALUES
+(1, 'duynt@bestarion.com', '123456', 'Thanh Duy', 'Nguyen', '0', NULL, NULL, 1),
+(2, 'hieuam@bestarion.com', '123456', 'Hieu', 'AM', '1', NULL, NULL, 1),
+(3, 'admin@bestarion.com', '123456', 'Admin', NULL, '2', NULL, NULL, 1),
+(4, 'user1@bestarion.com', '123456', 'User 1', NULL, '0', NULL, NULL, 1),
+(5, 'user2@bestarion.com', '123456', 'User 2', NULL, '0', NULL, NULL, 1),
+(6, 'mana1@bestarion.com', '123456', 'Manager 1', NULL, '1', NULL, NULL, 1),
+(7, 'mana2@bestarion.com', '123456', 'Manager 2', NULL, '1', NULL, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -163,27 +220,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `detail_timesheet`
 --
 ALTER TABLE `detail_timesheet`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `id_project` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id_task` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_task` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `timesheet`
 --
 ALTER TABLE `timesheet`
-  MODIFY `id_timesheet` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_timesheet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --

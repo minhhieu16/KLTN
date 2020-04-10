@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Daily Report - Vegas</title>
-    <base href="http://localhost/kgim_web/">
+    <base href="http://localhost:88/KLTN/">
     <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="public/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -29,9 +29,9 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <a href="DailyReport/index" class="nav navbar-left">
+            <!-- <a href="DailyReport/index" class="nav navbar-left">
                 <img src="public/images/logo.png" width="250px" height="80px">
-            </a>
+            </a> -->
             <div class="navbar-header" style="padding-top: 10px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -39,20 +39,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index">VEGAS</a>
+                
             </div>
             
             <!-- /.navbar-header -->
-<!--             <ul class="nav navbar-top-links navbar-left">
-                <li class="">    
+            <ul class="nav navbar-top-links navbar-left">
+                <!-- <li class="">    
                     <a href="DailyReport/index">
                         <img src="public/images/logo.png" width="120px" height="50px">
                     </a>
+                </li> -->
+                <li>
+                    <a href="">Home</a>
                 </li>
                 
-            </ul> -->
+            </ul>
             <ul class="nav navbar-top-links navbar-right">
-                
+                <li>
+                    <span style="color: red"><?php echo $_SESSION['display_name']; ?></span>
+                </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -72,28 +77,16 @@
                 
             </ul>
             
-
-            <!-- <div class="navbar-default sidebar" id="menu" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> VENUES<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="">Vegas Club</a>
-                                </li>
-                                
-                            </ul>
-                            
-                        </li>
-                        
-                    </ul>
-                </div>
-                
-            </div> -->
+            
             
         </nav>
         <div class="content">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
+              </ol>
+            </nav>
             <?php
                 include 'pages/'.$data["pages"].'.php'; 
                 

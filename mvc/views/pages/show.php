@@ -2,8 +2,8 @@
     <div class="col-lg-8">
 
         <a href="DailyReport/addNew"><button type="button"  class="btn btn-primary">Add New</button></a>
-            Vegas Caravelle Report - 
-            <span style="color: red"><?php echo $_SESSION['display_name']; ?></span>
+            Time Sheet
+            
             
     </div>
     <div class="col-lg-3">
@@ -29,19 +29,13 @@
             <thead>
                 <tr style="font-weight: bold;">
                    <td>No</td>
-                   <td>Date</td>
-                   <td>List of Iusses</td>
-                   <td>MC#</td>
-                   <td>Level</td>
-                   <td>Status</td>
-                   <td>Shift</td>
-                   <td>Start</td>
-                   <td>Finish</td>
-                   <td>Total</td>
-                   <td>In charge</td>
-                   <td >Note</td>
-                   <td>Reason</td>
-                   <td>Solution</td>
+                   <td>User</td>
+                   <td>Start Date</td>
+                   <td>End Date</td>
+                   <td>Approved by</td>
+                   <td>Approved/rejected</td>
+                   <td>Rejected by</td>
+                   <td>Total Time</td>
                    <td>Edit</td>
                 </tr>
             </thead>
