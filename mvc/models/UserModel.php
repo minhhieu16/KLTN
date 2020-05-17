@@ -3,17 +3,26 @@ class UserModel extends DB
 {
     public function loginModel($username, $password)
     {
-        echo $sql = "select * from user where username = '$username' and password = '$password'";
-        $result = mysqli_query($this->con,$sql);  
-        if(mysqli_num_rows($result)!=0)
+        $sql = "select * from ts_user where username = ?";
+        $result = $this->prepare($sql);
+        $result->bind_param('s',$username);
+        $result->execute();  
+        if($result->num_rows > 0 )
         {
-            while($row = mysqli_fetch_array($result))
-            {
-                $_SESSION['user']= $row['username'];
-                $_SESSION['display_name']= $row['username'];
-                $_SESSION['ID']= $row['id_user'];
+            $row = $result->fetch_assoc();
+            if($row['password'] == md5($password)) {
+                while($row)
+                {
+                    $_SESSION['display_name']= $row['last_name'] + $row['first_name'];
+                    $_SESSION['user']= $row['username'];
+                    $_SESSION['ID']= $row['id_user'];
+                }
+                return true;
             }
-            return true;
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -22,7 +31,7 @@ class UserModel extends DB
     }
     function oldPasswordMatched($password){
         $id = $_SESSION['ID'];
-		$sql = "SELECT * FROM tbl_employee WHERE EmpID= '$id'";
+		$sql = "SELECT * FROM ts_user WHERE id_user = '$id'";
 		$result = mysqli_query($this->con,$sql);  
 		
 		if( mysqli_num_rows($result)!=0 ){
