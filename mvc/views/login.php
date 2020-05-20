@@ -43,7 +43,7 @@
 				<span class="login100-form-title p-b-41">
 					KGIM
 				</span>
-				<form class="login100-form validate-form p-b-33 p-t-5" method="post" action="Login/UserLogin">
+				<form class="login100-form validate-form p-b-33 p-t-5" method="post" action="User/UserLogin">
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
 						<input class="input100" type="text" name="username" placeholder="User name">

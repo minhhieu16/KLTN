@@ -46,6 +46,7 @@ class User extends Controller
 
         if($_POST['key']=='ChangePass')
         {
+            
             if( $this->us->oldPasswordMatched($_POST['opassword']) ){
                  if($this->us->UpdatePass($_POST['npassword']))
                  {
@@ -58,9 +59,6 @@ class User extends Controller
             else {
                 echo 'failed';
             }
-        }
-        else {
-            echo 'failed';
         }
     }
 
