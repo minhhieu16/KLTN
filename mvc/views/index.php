@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Daily Report - Vegas</title>
-    <base href="http://localhost:88/KLTN/">
+    <base href="http://localhost/KLTN/">
     <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="public/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -56,7 +56,7 @@
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <span style="color: red"><?php echo $_SESSION['display_name']; ?></span>
+                    <span style="color: red"><?php echo $_SESSION['user']; ?></span>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">

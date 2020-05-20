@@ -5,12 +5,12 @@ class DailyReport extends Controller
     public $rep;
     public function __construct ()
     {
-        $this->checkUser = $this->SessionProcess();
+        // $this->checkUser = $this->SessionProcess();
         $this->rep = $this->model("HomeModel");
-        if(!$this->checkUser)
-        {
-            echo '<script language="javascript">location.href="./../index.php";</script>';
-        }
+        // if(!$this->checkUser)
+        // {
+        //     echo '<script language="javascript">location.href="./../index.php";</script>';
+        // }
     }
     public function index()
     {

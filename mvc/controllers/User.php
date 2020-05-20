@@ -62,9 +62,6 @@ class User extends Controller
         else {
             echo 'failed';
         }
-
-
-
     }
 
     public function Logout()
