@@ -9,18 +9,18 @@ class HomeModel extends DB
         $s2 = explode("/",$s[1]);
         $date1 = $s1['2'].'-'.$s1['1'].'-'.$s1['0'];
         $date2 = $s2['2'].'-'.$s2['1'].'-'.$s2['0'];
-        return $where = " AND dr.Date BETWEEN '".$date1." 00:00:00' AND '".$date2." 23:59:59'";
+        return $where = " AND dr.date BETWEEN '".$date1." 00:00:00' AND '".$date2." 23:59:59'";
     }
     public function getReport($where)
     {
         
-        $sql = "SELECT dr.ID_Report,dr.EmpID,dr.Date,iss.IssueName, lv.Level, st.Status, s.ShiftName,dr.Start, dr.Finished, dr.Total ,emp.DisplayName, dr.Note, dr.Reason,dr.Solution,dr.IsActive,dr.Type FROM tbl_dailyreport dr 
-            join tbl_issue iss on iss.ID_Issue=dr.ID_Issue
-            join tbl_level lv on lv.ID_Level=dr.ID_Level
-            join tbl_status st on st.ID_Status=dr.ID_Status
-            join tbl_employee emp on emp.EmpID=dr.EmpID
-            join tbl_shiftname s on s.ShiftID=dr.ShiftID
-            WHERE dr.IsActive = 1 ".$where." ORDER by dr.ID_Report DESC";
+        $sql = "SELECT dr.id_report,dr.id_user,dr.date,iss.name_issue, lv.name_level, st.name_status, s.name_shift,dr.start, dr.finish, dr.total ,emp.first_name, emp.last_name, dr.note, dr.reason,dr.solution,dr.is_active,dr.id_type FROM ts_report dr 
+            join ts_issue iss on iss.id_issue=dr.id_issue
+            join ts_level lv on lv.id_level=dr.id_level
+            join ts_status st on st.id_status=dr.id_status
+            join ts_user emp on emp.id_user=dr.id_user
+            join ts_shift s on s.id_shift=dr.id_shift
+            WHERE dr.is_active = 1 ".$where." ORDER by dr.id_report DESC";
         $arr = array();
         $row = mysqli_query($this->con,$sql);
         $i = 1;
@@ -28,21 +28,22 @@ class HomeModel extends DB
         {
             $sub_array = array();
             $sub_array[] = $i;
-            $sub_array[] = date('d/m/y',strtotime($rows["Date"]));
-            $sub_array[] = $rows["IssueName"];
-            $sub_array[] = $rows["Type"];
-            $sub_array[] = $rows["Level"];
-            $sub_array[] = $rows["Status"];
-            $sub_array[] = '<a style="font-weight:bold" class="green">'.$rows["ShiftName"].'</a>';
-            $sub_array[] = $rows["Start"];
-            $sub_array[] = $rows["Finished"];
-            $sub_array[] = $rows["Total"];
-            $sub_array[] = $rows["DisplayName"];
-            $sub_array[] = $rows["Note"];
-            $sub_array[] = $rows["Reason"];
-            $sub_array[] = $rows["Solution"];
-            //$sub_array[] = $rows["ID_Report"];
-            $sub_array[] = "<a href='DailyReport/Edit/".$rows['ID_Report']."' id='editReport' class='btn btn-info btn-xs' ><i class='fa fa-pencil'></i>Edit</a>";
+            $sub_array[] = date('d/m/y',strtotime($rows["date"]));
+            $sub_array[] = $rows["name_issue"];
+            $sub_array[] = $rows["name_type"];
+            $sub_array[] = $rows["name_level"];
+            $sub_array[] = $rows["name_status"];
+            $sub_array[] = '<a style="font-weight:bold" class="green">'.$rows["name_shift"].'</a>';
+            $sub_array[] = $rows["start"];
+            $sub_array[] = $rows["finished"];
+            $sub_array[] = $rows["total"];
+            $sub_array[] = $rows["last_name"];
+            $sub_array[] = $rows["first_name"];
+            $sub_array[] = $rows["note"];
+            $sub_array[] = $rows["reason"];
+            $sub_array[] = $rows["solution"];
+            
+            $sub_array[] = "<a href='DailyReport/Edit/".$rows['id_report']."' id='editReport' class='btn btn-info btn-xs' ><i class='fa fa-pencil'></i>Edit</a>";
             $arr[] = $sub_array;
             $i+=1;
         }
@@ -57,19 +58,19 @@ class HomeModel extends DB
     }
     public function get_all_data()
     {
-     $sql = "SELECT * FROM tbl_dailyreport";
+     $sql = "SELECT * FROM ts_report";
      $result = mysqli_query($this->con,$sql);
      return mysqli_num_rows($result);
     }
     public function number_filter_row()
     {
-     $sql = "SELECT * FROM tbl_dailyreport";
+     $sql = "SELECT * FROM ts_report";
      $result = mysqli_query($this->con,$sql);
      return mysqli_num_rows($result);
     }
 
     public function Add_Issue(){
-        $sql = "SELECT * FROM tbl_issue WHERE IsActive = 1 ORDER BY IssueName ASC";
+        $sql = "SELECT * FROM ts_issue WHERE is_active = 1 ORDER BY name_issue ASC";
         $arr = array();
         $row = mysqli_query($this->con,$sql);
         while($rows = mysqli_fetch_array($row))
@@ -79,7 +80,7 @@ class HomeModel extends DB
         return json_encode($arr);
     }
     public function Add_Type(){
-        $sql = "SELECT * FROM tbl_type WHERE IsActive = 1 ORDER BY name_type ASC";
+        $sql = "SELECT * FROM ts_type WHERE is_active = 1 ORDER BY name_type ASC";
         $arr = array();
         $row = mysqli_query($this->con,$sql);
         while($rows = mysqli_fetch_array($row))
@@ -89,7 +90,7 @@ class HomeModel extends DB
         return json_encode($arr);
     }
     public function Add_Status(){
-        $sql = "SELECT * FROM tbl_status WHERE IsActive = 1";
+        $sql = "SELECT * FROM ts_status WHERE is_active = 1";
         $arr = array();
         $row = mysqli_query($this->con,$sql);
         while($rows = mysqli_fetch_array($row))
@@ -99,7 +100,7 @@ class HomeModel extends DB
         return json_encode($arr);
     }
     public function Add_Shift(){
-        $sql = "SELECT * FROM tbl_shiftname WHERE IsActive = 1";
+        $sql = "SELECT * FROM ts_shift WHERE is_active = 1";
         $arr = array();
         $row = mysqli_query($this->con,$sql);
         while($rows = mysqli_fetch_array($row))
@@ -109,7 +110,7 @@ class HomeModel extends DB
         return json_encode($arr);
     }
     public function Add_Level(){
-        $sql = "SELECT * FROM tbl_level WHERE IsActive = 1";
+        $sql = "SELECT * FROM ts_level WHERE is_active = 1";
         $arr = array();
         $row = mysqli_query($this->con,$sql);
         while($rows = mysqli_fetch_array($row))
@@ -120,7 +121,7 @@ class HomeModel extends DB
     }
     public function selectType($id)
     {
-        $sql = "select Type from tbl_issue where ID_Issue = '$id' AND IsActive = 1 ";
+        $sql = "select type from ts_issue where id_issue = '$id' AND is_active = 1 ";
         $res = mysqli_query($this->con, $sql);
         $arr = array();
         if(mysqli_num_rows($res)>0)
@@ -136,14 +137,7 @@ class HomeModel extends DB
 
     public function addNewReportModel($data)
     {
-        // $sql = "insert into tbl_dailyreport values(null,CURRENT_TIMESTAMP,'".$data['issue']."',
-        // '".$data['mc']."','".$data['level']."','".$data['status']."','".$data['shift']."',
-        // '".$data['start']."','".$data['finish']."','".$data['total']."',
-        // '".$_SESSION['ID']."','".$data['note']."','".$data['reason']."',
-        // '".$data['solution']."',1)";
-        // $result = mysqli_query($this->con,$sql);
-        // return $result;
-        $sql1 = "insert into tbl_dailyreport values(null,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,1)";
+        $sql1 = "insert into ts_report values(null,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,1)";
         $stmt = mysqli_prepare($this->con,$sql1);
         mysqli_stmt_bind_param($stmt,"isiiisssisss",$data['issue'],$data['mc'],$data['level'],
                                                     $data['status'],$data['shift'],$data['start'],
@@ -155,7 +149,7 @@ class HomeModel extends DB
 
     public function checkEdit($id)
     {
-        $sql = "select * from tbl_dailyreport where ID_Report = $id AND IsActive = 1";
+        $sql = "select * from ts_report where id_report = $id AND is_active = 1";
         $res = mysqli_query($this->con,$sql);
         $arr = array();
         if(mysqli_num_rows($res)>0)
@@ -173,7 +167,7 @@ class HomeModel extends DB
 
     public function getName($idUser)
     {
-        $sql = "select DisplayName from tbl_employee where EmpID = $idUser AND IsActive = 1";
+        $sql = "select DisplayName from ts_user where id_user = $idUser AND is_active = 1";
         $res = mysqli_query($this->con,$sql);
         $arr = array();
         if(mysqli_num_rows($res)>0)
@@ -191,31 +185,18 @@ class HomeModel extends DB
 
     public function EditReportModel($data)
     {
-        
-
-        // $sql ="UPDATE tbl_dailyreport 
-        // SET ID_Issue = '".$data['issue']."' ,  Type = '".$data['mc']."',
-        //     ID_Level = '".$data['level']."' ,  ID_Status = '".$data['status']."',
-        //     ShiftID = '".$data['shift']."' ,  Start = '".$data['start']."',
-        //     Finished = '".$data['finish']."' ,  Total = '".$data['total']."',
-        //     Note = '".$data['note']."' ,  Reason = '".$data['reason']."',
-        //     Solution = '".$data['solution']."'
-        // WHERE ID_Report = '".$data['idReport']."'";
-        // $result = mysqli_query($this->con,$sql);
-        // return $result;
-
-        $sql1 = " UPDATE tbl_dailyreport SET 
-                ID_Issue = ?, Type = ? , ID_Level = ?,
-                ID_Status = ?, ShiftID= ?, Start=?,
-                Finished = ?, Total = ?, Note= ? ,
-                Reason = ? , Solution= ?
-            WHERE ID_Report = ?
+        $sql1 = " UPDATE ts_report SET 
+                id_issue = ?, Type = ? , id_level = ?,
+                id_status = ?, id_shift= ?, start=?,
+                finish = ?, Total = ?, note= ? ,
+                reason = ? , solution= ?
+            WHERE id_report = ?
         ";
         $stmt =  mysqli_prepare($this->con,$sql1);
         mysqli_stmt_bind_param($stmt,"isiiissssssi",$data['issue'],$data['mc'],$data['level'],
                                                     $data['status'],$data['shift'],$data['start'],
                                                     $data['finish'],$data['total'],$data['note']
-                                                    ,$data['reason'],$data['solution'],$data['idReport']);
+                                                    ,$data['reason'],$data['solution'],$data['id_user']);
         $result = mysqli_stmt_execute($stmt);
         return $result;
 

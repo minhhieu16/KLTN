@@ -120,7 +120,7 @@ class DailyReport extends Controller
                 $data = array(
                             "issue"=> $_POST['issue'],
                             "level"=> $_POST['level'],
-                            "mc"=> $_POST['mc'],
+                            "type"=> $_POST['mc'],
                             "shift"=> $_POST['shift'],
                             "status"=> $_POST['status'],
                             "total"=> $_POST['total'],
@@ -149,7 +149,7 @@ class DailyReport extends Controller
         {
             $arr =json_decode($this->rep->checkEdit($id));
             
-            if($arr[0]->EmpID == $_SESSION['ID'])
+            if($arr[0]->id_user == $_SESSION['ID'])
             {
                 $this->view("index",[
                     "pages"=>"edit",
@@ -159,25 +159,25 @@ class DailyReport extends Controller
                     "level"=>$this->rep->Add_Level(),
                     "shift"=>$this->rep->Add_Shift(),
                     "type"=>$this->rep->Add_Type(),
-                    "SessionIdReport" => $id
+                    "Sessionid_user" => $id
                 ]);
 
             }
             else {
-                $name = $this->rep->getName($arr[0]->EmpID);
+                $name = $this->rep->getName($arr[0]->id_user);
                 echo "<script language='javascript'>alert('You can not edit report of ".$name[0]['DisplayName']." ');</script>";
                 echo '<script language="javascript">location.href="../index";</script>';
             }
         }
         
-        public function EditReport($idReport)
+        public function EditReport($id_user)
         {
             
             if(isset($_POST['editReport']))
             {
                 
                 $data = array(
-                            "idReport"=> $idReport,
+                            "id_user"=> $idReport,
                             "issue"=> $_POST['issue'],
                             "level"=> $_POST['level'],
                             "mc"=> $_POST['mc'],

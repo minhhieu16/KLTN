@@ -16,13 +16,13 @@
                         // Others nằm cuối danh sách
                         $issue = json_decode($data["issue"]);
                         foreach ($issue as $val) {
-                            if ($val->IssueName != 'Others') {
-                                echo "<option value='".$val->ID_Issue."'>".$val->IssueName."</option>";
+                            if ($val->name_issue != 'Others') {
+                                echo "<option value='".$val->id_issue."'>".$val->name_issue."</option>";
                             }
                         }
                         foreach ($issue as $val) {
-                            if ($val->IssueName == 'Others') {
-                                echo "<option value='".$val->ID_Issue."'>".$val->IssueName."</option>";
+                            if ($val->name_issue == 'Others') {
+                                echo "<option value='".$val->id_issue."'>".$val->name_issue."</option>";
                             }
                         }
                     ?>
@@ -55,7 +55,7 @@
                     <?php
                         $level = json_decode($data["level"]);
                         foreach ($level as $val) {
-                            echo "<option value='".$val->ID_Level."'>".$val->Level."</option>";
+                            echo "<option value='".$val->id_level."'>".$val->name_level."</option>";
                         }
                     ?>
                 </select>
@@ -66,7 +66,7 @@
                     <?php
                         $status = json_decode($data["status"]);
                         foreach ($status as $val) {
-                            echo "<option value='".$val->ID_Status."'>".$val->Status."</option>";
+                            echo "<option value='".$val->id_status."'>".$val->name_status."</option>";
                         }
                     ?>
                 </select>
@@ -77,7 +77,7 @@
                     <?php
                         $shift = json_decode($data["shift"]);
                         foreach ($shift as $val) {
-                            echo "<option value='".$val->ShiftID."'>".$val->ShiftName."</option>";
+                            echo "<option value='".$val->id_shift."'>".$val->name_shift."</option>";
                         }
                     ?>
                 </select>

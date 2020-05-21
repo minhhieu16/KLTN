@@ -20,10 +20,10 @@ foreach ($a as $value) {
                     <?php
                         $issue = json_decode($data["issue"]);
                         foreach ($issue as $val) {
-                            if($val->ID_Issue == $value->ID_Issue)
-                                echo "<option value='".$val->ID_Issue."' selected>".$val->IssueName."</option>";
+                            if($val->id_issue == $value->id_issue)
+                                echo "<option value='".$val->id_issue."' selected>".$val->name_issue."</option>";
                             else
-                                echo "<option value='".$val->ID_Issue."'>".$val->IssueName."</option>";
+                                echo "<option value='".$val->id_issue."'>".$val->name_issue."</option>";
                         }
                     ?>
                 </select>
@@ -64,24 +64,6 @@ foreach ($a as $value) {
                                 else
                                     echo "<option value='".$val->name_type."'>".$val->name_type."</option>";
                             }
-                                
-                            
-                            #-----------------------------#
-                            // if (!is_numeric($value->Type)) {
-                            //     # char
-                            //     if($val->name_type == $value->Type)
-                            //     echo "<option value='".$val->name_type."' selected>".$val->name_type."</option>";
-                            //     else
-                            //     echo "<option value='".$val->name_type."'>".$val->name_type."</option>";
-                            // } else {
-                            //     // number
-                            //     if($val->name_type == 'MC' || $val->name_type == 'Slot' || $val->name_type == 'Roulette')
-                            //     echo "<option value='".$val->name_type."' selected>".$val->name_type."</option>";
-                            //     else
-                            //     echo "<option value='".$val->name_type."'>".$val->name_type."</option>";
-                            // }
-                            
-
                             
                         }
                         ?>
@@ -120,10 +102,10 @@ foreach ($a as $value) {
                     <?php
                         $level = json_decode($data["level"]);
                         foreach ($level as $val) {
-                            if($val->ID_Level == $value->ID_Level)
-                            echo "<option value='".$val->ID_Level."' selected>".$val->Level."</option>";
+                            if($val->id_level == $value->id_level)
+                            echo "<option value='".$val->id_level."' selected>".$val->Level."</option>";
                             else
-                            echo "<option value='".$val->ID_Level."'>".$val->Level."</option>";
+                            echo "<option value='".$val->id_level."'>".$val->Level."</option>";
                         }
                     ?>
                 </select>
@@ -149,10 +131,10 @@ foreach ($a as $value) {
                         
                         $shift = json_decode($data["shift"]);
                         foreach ($shift as $val) {
-                            if($val->ShiftID == $value->ShiftID)
-                            echo "<option value='".$val->ShiftID."' selected>".$val->ShiftName."</option>";
+                            if($val->id_shift == $value->id_shift)
+                            echo "<option value='".$val->id_shift."' selected>".$val->name_shift."</option>";
                             else
-                            echo "<option value='".$val->ShiftID."'>".$val->ShiftName."</option>";
+                            echo "<option value='".$val->id_shift."'>".$val->name_shift."</option>";
                         }
                     ?>
                 </select>
@@ -164,11 +146,11 @@ foreach ($a as $value) {
         <div class="row">
             <div class="col-lg-4">
                 <label for="uname">Start:</label>
-                <input type="time" value="<?php echo $value->Start; ?>" class="form-control" id="startID" name="startID" >
+                <input type="time" value="<?php echo $value->start; ?>" class="form-control" id="startID" name="startID" >
             </div>
             <div class="col-lg-4">
                 <label for="uname">Finish:</label>
-                <input type="time" value="<?php echo $value->Finished; ?>" class="form-control" id="finishID" name="finishID" >
+                <input type="time" value="<?php echo $value->finish; ?>" class="form-control" id="finishID" name="finishID" >
             </div>
             <div class="col-lg-4">
                 <label for="uname">Total:</label>
@@ -190,7 +172,7 @@ foreach ($a as $value) {
                 <label for="uname">Note:</label>
             </div>
             <div class="col-lg-8">
-               <textarea class="form-control" id="note" name="note" rows="5" placeholder="Note"><?php echo $value->Note; ?></textarea>
+               <textarea class="form-control" id="note" name="note" rows="5" placeholder="Note"><?php echo $value->note; ?></textarea>
             </div>
         </div>
     </div>
@@ -200,7 +182,7 @@ foreach ($a as $value) {
                 <label for="uname">Reason:</label>
             </div>
             <div class="col-lg-8">
-               <textarea class="form-control" name="reason" id="reason" rows="5" placeholder="Reason"><?php echo $value->Reason; ?></textarea>
+               <textarea class="form-control" name="reason" id="reason" rows="5" placeholder="Reason"><?php echo $value->reason; ?></textarea>
             </div>
         </div>
     </div>
@@ -210,7 +192,7 @@ foreach ($a as $value) {
                 <label for="uname">Solution:</label>
             </div>
             <div class="col-lg-8">
-               <textarea class="form-control" name="solution" id="solution" rows="5" placeholder="Solution"><?php echo $value->Solution; ?></textarea>
+               <textarea class="form-control" name="solution" id="solution" rows="5" placeholder="Solution"><?php echo $value->solution; ?></textarea>
             </div>
         </div>
     </div>
