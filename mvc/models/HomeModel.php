@@ -193,20 +193,18 @@ class HomeModel extends DB
         $data['note'] = mysqli_real_escape_string($this->con,$data['note']);
         $data['reason'] = mysqli_real_escape_string($this->con,$data['reason']);
         $data['solution'] = mysqli_real_escape_string($this->con,$data['solution']);
-        $sql1 = " update ts_report set 
-                id_issue = ?, id_type = ? , id_level = ?,
-                id_status = ?, id_shift= ?, start=?,
-                finish = ?, total = ?, note= ? ,
-                reason = ? , solution= ?
-            WHERE id_report = ?
-        ";
+        $sql1 = " update ts_report set id_issue = ?, id_type = ? , id_level = ?, id_status = ?, id_shift= ?, start=?, finish = ?, total = ?, note= ? , reason = ? , solution= ? WHERE id_report = ? ";
         $stmt =  mysqli_prepare($this->con,$sql1);
-        mysqli_stmt_bind_param($stmt,"iiiiissssssi",$data['issue'],$data['type'],$data['level'],
-                                                    $data['status'],$data['shift'],$data['start'],
-                                                    $data['finish'],$data['total'],$data['note']
-                                                    ,$data['reason'],$data['solution'],$data['id_user']);
-        $result = mysqli_stmt_execute($stmt);
-        return $result;
+        mysqli_stmt_bind_param($stmt,"iiiiissssssi",$data['issue'],$data['type'],$data['level'], $data['status'],$data['shift'],$data['start'], $data['finish'],$data['total'],$data['note'],$data['reason'],$data['solution'],$data['id_report']);
+        
+        if(mysqli_stmt_execute($stmt))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
     }
 }

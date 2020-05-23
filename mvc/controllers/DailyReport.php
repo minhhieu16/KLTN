@@ -159,7 +159,7 @@ class DailyReport extends Controller
                     "level"=>$this->rep->Add_Level(),
                     "shift"=>$this->rep->Add_Shift(),
                     "type"=>$this->rep->Add_Type(),
-                    "Sessionid_user" => $id
+                    "SessionIdReport" => $id
                 ]);
 
             }
@@ -170,14 +170,14 @@ class DailyReport extends Controller
             }
         }
         
-        public function EditReport($id_user)
+        public function EditReport()
         {
             
             if(isset($_POST['editReport']))
             {
                 
                 $data = array(
-                            "id_user"=> $idReport,
+                            "id_report"=> $_POST['id_report'],
                             "issue"=> $_POST['issue'],
                             "level"=> $_POST['level'],
                             "type"=> $_POST['type'],
@@ -191,7 +191,7 @@ class DailyReport extends Controller
                             "solution"=> $_POST['solution']
                             );
                 
-                if($this->rep->EditReportModel($data)==true){
+                if($this->rep->EditReportModel($data)){
                     echo "success";
                 }else{
                     echo "failed";

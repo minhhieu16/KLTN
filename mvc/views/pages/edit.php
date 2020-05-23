@@ -10,11 +10,12 @@ foreach ($a as $value) {
 <div class="row">
     
     <div class="col-sm-8 add">
-        <form class="was-validated" method="post" id="formEdit" action="DailyReport/EditReport/<?php echo $data["SessionIdReport"]; ?>">
+        <form class="was-validated" method="post" id="formEdit" action="DailyReport/EditReport">
     <div class="form-group">
         <div class="row">
             
             <div class="col-lg-4">
+            <input type="hidden" id="id_report" name="id_report" value="<?php echo $data["SessionIdReport"]; ?>">
                 <label for="issue">List of Issue:</label>
                 <select class="form-control" id="issue" name="issue">
                     <?php
@@ -30,44 +31,16 @@ foreach ($a as $value) {
             </div>
             <div class="col-lg-4">
                 <label for="type">Type:</label>
-                <select class="form-control" id="Type" name="Type">
-                        <?php
+                <select class="form-control" id="type" name="type">
+                <?php
                         $type = json_decode($data["type"]);
-                        
                         foreach ($type as $val) {
-                            if(count($arrType)>1)
-                            {
-                                $stringType = "";
-                                foreach($arrType as $typeArrElement)
-                                {
-                                    if(is_numeric($typeArrElement))
-                                    {
-                                        settype($typeArrElement, "integer");
-                                    }
-                                    if(is_string($typeArrElement))
-                                    {
-                                        $stringType .=  $typeArrElement . " ";
-                                    }
-                                    
-                                }
-                                $stringType = rtrim($stringType, " ");
-                                if($val->name_type == $stringType)
-                                    
-                                    echo "<option value='".$val->name_type."' selected>".$val->name_type."</option>";
-                                else
-                                    echo "<option value='".$val->name_type."'>".$val->name_type."</option>";
-                                
-                            }
-                            else {
-                                if($val->name_type == $arrType[0])
-                                    echo "<option value='".$arrType[0]."' selected>".$arrType[0]."</option>";
-                                else
-                                    echo "<option value='".$val->name_type."'>".$val->name_type."</option>";
-                            }
-                            
+                            if($val->id_type == $value->id_type)
+                                echo "<option value='".$val->id_type."' selected>".$val->name_type."</option>";
+                            else
+                                echo "<option value='".$val->id_type."'>".$val->name_type."</option>";
                         }
-                        ?>
-                    
+                    ?>
                 </select>
             </div>
         </div>
@@ -101,10 +74,10 @@ foreach ($a as $value) {
                     <?php
                         $status = json_decode($data["status"]);
                         foreach ($status as $val) {
-                            if($val->ID_Status == $value->ID_Status)
-                            echo "<option value='".$val->ID_Status."' selected>".$val->name_status."</option>";
+                            if($val->id_status == $value->id_status)
+                            echo "<option value='".$val->id_status."' selected>".$val->name_status."</option>";
                             else
-                            echo "<option value='".$val->ID_Status."'>".$val->name_status."</option>";
+                            echo "<option value='".$val->id_status."'>".$val->name_status."</option>";
                         }
                     ?>
                 </select>
@@ -130,17 +103,17 @@ foreach ($a as $value) {
     <div class="form-group">
         <div class="row">
             <div class="col-lg-4">
-                <label for="uname">Start:</label>
+                <label for="Start">Start:</label>
                 <input type="time" value="<?php echo $value->start; ?>" class="form-control" id="startID" name="startID" >
             </div>
             <div class="col-lg-4">
-                <label for="uname">Finish:</label>
+                <label for="Finish">Finish:</label>
                 <input type="time" value="<?php echo $value->finish; ?>" class="form-control" id="finishID" name="finishID" >
             </div>
             <div class="col-lg-4">
-                <label for="uname">Total:</label>
+                <label for="Total">Total:</label>
                 <div id="total12">
-                <input type="text" value="<?php echo $value->total; ?>" class="form-control" id="total" name="total" value="" disabled=""></div>
+                <input type="text" value="<?php echo $value->total; ?>" class="form-control" id="total" name="total" disabled=""></div>
             </div>
         </div>
     </div>

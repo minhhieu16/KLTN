@@ -117,13 +117,13 @@ function submitEditReport($form) {
     var note = $("#note").val();
     var reason = $("#reason").val();
     var solution = $("#solution").val();
-    
+    var id_report = $("#id_report").val();
 
     $.ajax({
         url: $form.attr('action'),
         method: $form.attr('method'),
         data:{
-            editReport: "editReport",
+            editReport: "updateReport",
             issue: issue,
             level: level,
             status: status,
@@ -135,6 +135,7 @@ function submitEditReport($form) {
             note: note,
             reason: reason,
             solution: solution, 
+            id_report: id_report
         },
         success: function (response) {
             
