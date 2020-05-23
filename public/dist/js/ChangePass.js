@@ -28,8 +28,8 @@ $(document).ready(function() {
                 success: function (response) {
                     if(response=="success")
                     {
-                        $footer.html('<p style="color: green; text-align:center">Change successed!</p>');
-
+                        alert("Update password successfully!");
+                        window.location="index.php";
                     }
                     else if(response=="failed")
                     {
