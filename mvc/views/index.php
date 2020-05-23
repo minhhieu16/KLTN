@@ -182,7 +182,7 @@
         
         ],
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel', 'print'
         ],
            "ajax" : {
             url:"DailyReport/processDateReport",
