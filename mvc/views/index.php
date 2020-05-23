@@ -82,10 +82,6 @@
         </nav>
         <div class="content">
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
-              </ol>
             </nav>
             <?php
                 include 'pages/'.$data["pages"].'.php'; 

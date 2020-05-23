@@ -14,12 +14,13 @@ class HomeModel extends DB
     public function getReport($where)
     {
         
-        $sql = "SELECT dr.id_report,dr.id_user,dr.date,iss.name_issue, lv.name_level, st.name_status, s.name_shift,dr.start, dr.finish, dr.total ,emp.first_name, emp.last_name, dr.note, dr.reason,dr.solution,dr.is_active,dr.id_type FROM ts_report dr 
+        $sql = "SELECT dr.id_report,dr.id_user,dr.date,iss.name_issue, lv.name_level, st.name_status, s.name_shift,dr.start, dr.finish, dr.total ,emp.first_name, emp.last_name, dr.note, dr.reason,dr.solution,dr.is_active, ty.name_type FROM ts_report dr 
             join ts_issue iss on iss.id_issue=dr.id_issue
             join ts_level lv on lv.id_level=dr.id_level
             join ts_status st on st.id_status=dr.id_status
             join ts_user emp on emp.id_user=dr.id_user
             join ts_shift s on s.id_shift=dr.id_shift
+            join ts_type ty on ty.id_type=dr.id_type
             WHERE dr.is_active = 1 ".$where." ORDER by dr.id_report DESC";
         $arr = array();
         $row = mysqli_query($this->con,$sql);
@@ -35,10 +36,9 @@ class HomeModel extends DB
             $sub_array[] = $rows["name_status"];
             $sub_array[] = '<a style="font-weight:bold" class="green">'.$rows["name_shift"].'</a>';
             $sub_array[] = $rows["start"];
-            $sub_array[] = $rows["finished"];
+            $sub_array[] = $rows["finish"];
             $sub_array[] = $rows["total"];
-            $sub_array[] = $rows["last_name"];
-            $sub_array[] = $rows["first_name"];
+            $sub_array[] = $rows["last_name"] . " " . $rows["first_name"];
             $sub_array[] = $rows["note"];
             $sub_array[] = $rows["reason"];
             $sub_array[] = $rows["solution"];
@@ -137,14 +137,21 @@ class HomeModel extends DB
 
     public function addNewReportModel($data)
     {
-        $sql1 = "insert into ts_report values(null,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,1)";
-        $stmt = mysqli_prepare($this->con,$sql1);
-        mysqli_stmt_bind_param($stmt,"isiiisssisss",$data['issue'],$data['mc'],$data['level'],
-                                                    $data['status'],$data['shift'],$data['start'],
-                                                    $data['finish'],$data['total'],$_SESSION['ID'],
-                                                    $data['note'],$data['reason'],$data['solution']);
-        $result = mysqli_stmt_execute($stmt);
-        return $result;
+        $data['note'] = mysqli_real_escape_string($this->con,$data['note']);
+        $data['reason'] = mysqli_real_escape_string($this->con,$data['reason']);
+        $data['solution'] = mysqli_real_escape_string($this->con,$data['solution']);
+        $sql = "insert into ts_report(start, finish, total, id_user, id_level, id_status, id_shift, id_issue, id_type, note, reason, solution) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        $stmt = mysqli_prepare($this->con,$sql);
+        mysqli_stmt_bind_param($stmt,"sssiiiiiisss",$data['start'],$data['finish'],$data['total'],$_SESSION['ID'],$data['level'],$data['status'],$data['shift'],$data['issue'],$data['type'],$data['note'],$data['reason'],$data['solution']);
+        
+        if ( mysqli_stmt_execute($stmt) ) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     public function checkEdit($id)
@@ -175,8 +182,6 @@ class HomeModel extends DB
             while($row=  mysqli_fetch_assoc($res))
             {
                 $arr[] = $row;
-                
-                
             }
             
         }
@@ -185,15 +190,18 @@ class HomeModel extends DB
 
     public function EditReportModel($data)
     {
-        $sql1 = " UPDATE ts_report SET 
-                id_issue = ?, Type = ? , id_level = ?,
+        $data['note'] = mysqli_real_escape_string($this->con,$data['note']);
+        $data['reason'] = mysqli_real_escape_string($this->con,$data['reason']);
+        $data['solution'] = mysqli_real_escape_string($this->con,$data['solution']);
+        $sql1 = " update ts_report set 
+                id_issue = ?, id_type = ? , id_level = ?,
                 id_status = ?, id_shift= ?, start=?,
-                finish = ?, Total = ?, note= ? ,
+                finish = ?, total = ?, note= ? ,
                 reason = ? , solution= ?
             WHERE id_report = ?
         ";
         $stmt =  mysqli_prepare($this->con,$sql1);
-        mysqli_stmt_bind_param($stmt,"isiiissssssi",$data['issue'],$data['mc'],$data['level'],
+        mysqli_stmt_bind_param($stmt,"iiiiissssssi",$data['issue'],$data['type'],$data['level'],
                                                     $data['status'],$data['shift'],$data['start'],
                                                     $data['finish'],$data['total'],$data['note']
                                                     ,$data['reason'],$data['solution'],$data['id_user']);

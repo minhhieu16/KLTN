@@ -70,21 +70,6 @@ foreach ($a as $value) {
                     
                 </select>
             </div>
-            <div class="col-lg-4">
-                <label for="type">MC:</label>
-                <input type="text" value="<?php  
-                // if(count($arrType) > 1) 
-                //     echo end($arrType);
-                foreach($arrType as $typeArrElement)
-                    {
-                        if(is_numeric($typeArrElement))
-                        {
-                            echo $typeArrElement . " ";
-                        }
-                    }
-                
-                ?>" class="form-control" id="valMC" name="valMC" placeholder="MC">
-            </div>
         </div>
     </div>
     <div class="form-group">
@@ -103,9 +88,9 @@ foreach ($a as $value) {
                         $level = json_decode($data["level"]);
                         foreach ($level as $val) {
                             if($val->id_level == $value->id_level)
-                            echo "<option value='".$val->id_level."' selected>".$val->Level."</option>";
+                            echo "<option value='".$val->id_level."' selected>".$val->name_level."</option>";
                             else
-                            echo "<option value='".$val->id_level."'>".$val->Level."</option>";
+                            echo "<option value='".$val->id_level."'>".$val->name_level."</option>";
                         }
                     ?>
                 </select>
@@ -117,9 +102,9 @@ foreach ($a as $value) {
                         $status = json_decode($data["status"]);
                         foreach ($status as $val) {
                             if($val->ID_Status == $value->ID_Status)
-                            echo "<option value='".$val->ID_Status."' selected>".$val->Status."</option>";
+                            echo "<option value='".$val->ID_Status."' selected>".$val->name_status."</option>";
                             else
-                            echo "<option value='".$val->ID_Status."'>".$val->Status."</option>";
+                            echo "<option value='".$val->ID_Status."'>".$val->name_status."</option>";
                         }
                     ?>
                 </select>
@@ -155,7 +140,7 @@ foreach ($a as $value) {
             <div class="col-lg-4">
                 <label for="uname">Total:</label>
                 <div id="total12">
-                <input type="text" value="<?php echo $value->Total; ?>" class="form-control" id="total" name="total" value="" disabled=""></div>
+                <input type="text" value="<?php echo $value->total; ?>" class="form-control" id="total" name="total" value="" disabled=""></div>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ class UserModel extends DB
 {
     public function loginModel($username, $password)
     {
+        $username = mysqli_real_escape_string($this->con,$username);
         $sql = "select * from ts_user where username = ?";
         $stmt = mysqli_prepare($this->con, $sql);
         mysqli_stmt_bind_param($stmt,'s',$username);

@@ -56,93 +56,93 @@ class DailyReport extends Controller
             "type"=>$this->rep->Add_Type(),
             "shift"=>$this->rep->Add_Shift()]);
             
-        }
+    }
         
-        public function ajaxChooseType()
+    public function ajaxChooseType()
+    {
+        if(isset($_POST['id']))
         {
-            if(isset($_POST['id']))
+            $arrType =  $this->rep->selectType($_POST['id']);
+            foreach($arrType as $val)
             {
-               $arrType =  $this->rep->selectType($_POST['id']);
-               foreach($arrType as $val)
-               {
-                   
-                   echo'
-                        <option value="'.$val['Type'].'">'.$val['Type'].'</option>
-                   ';
-               }
+                
+                echo'
+                    <option value="'.$val['type'].'">'.$val['type'].'</option>
+                ';
             }
         }
+    }
 
-        public function CalcuTime()
-        {
-            if (isset($_POST['time'])) {
-                $s1 = explode(':', $_POST['timeS1']);
-                $s2 = explode(':', $_POST['timeS2']);
-                
-                $total = ($s2[0]*60 + $s2[1] ) - ($s1[0]*60 + $s1[1] );
-                $du = $total%60;
-                $nguyen = ($total-$du)/60;
+    public function CalcuTime()
+    {
+        if (isset($_POST['time'])) {
+            $s1 = explode(':', $_POST['timeS1']);
+            $s2 = explode(':', $_POST['timeS2']);
+            
+            $total = ($s2[0]*60 + $s2[1] ) - ($s1[0]*60 + $s1[1] );
+            $du = $total%60;
+            $nguyen = ($total-$du)/60;
+            $checkNguyen = true;
+            $checkDu = true;
+            if($nguyen < 10 && $nguyen >= 0)
+            {
+                $nguyen = "0".$nguyen;
                 $checkNguyen = true;
+            }
+            elseif ($nguyen < 0)
+            {
+                $checkNguyen = false;
+            }
+            if($du < 10 && $du >= 0)
+            {
+                $du = "0".$du;
                 $checkDu = true;
-                if($nguyen < 10 && $nguyen >= 0)
-                {
-                    $nguyen = "0".$nguyen;
-                    $checkNguyen = true;
-                }
-                elseif ($nguyen < 0)
-                {
-                    $checkNguyen = false;
-                }
-                if($du < 10 && $du >= 0)
-                {
-                    $du = "0".$du;
-                    $checkDu = true;
-                }
-                elseif ($du < 0)
-                {
-                    $checkDu = false;
-                }
-                if($checkDu && $checkNguyen)
-                {
-                    echo $total_char = $nguyen.":".$du;
-
-                }
-                else {
-                    echo "failed";
-                }
             }
-        }
-
-        public function addNewReport()
-        {
-            if(isset($_POST['newReport']))
+            elseif ($du < 0)
             {
-                $data = array(
-                            "issue"=> $_POST['issue'],
-                            "level"=> $_POST['level'],
-                            "type"=> $_POST['mc'],
-                            "shift"=> $_POST['shift'],
-                            "status"=> $_POST['status'],
-                            "total"=> $_POST['total'],
-                            "start"=> $_POST['start'],
-                            "finish"=> $_POST['finish'],
-                            "note"=> $_POST['note'],
-                            "reason"=> $_POST['reason'],
-                            "solution"=> $_POST['solution']
-                            );
-                
-                if($this->rep->addNewReportModel($data)==true){
-                    echo "success";
-                }else{
-                    echo "failed";
-                }
-                
+                $checkDu = false;
             }
-            else 
+            if($checkDu && $checkNguyen)
             {
+                echo $total_char = $nguyen.":".$du;
+
+            }
+            else {
                 echo "failed";
             }
         }
+    }
+
+    public function addNewReport()
+    {
+        if(isset($_POST['newReport']))
+        {
+            $data = array(
+                        "issue"=> $_POST['issue'],
+                        "type"=> $_POST['type'],
+                        "level"=> $_POST['level'],
+                        "shift"=> $_POST['shift'],
+                        "status"=> $_POST['status'],
+                        "total"=> $_POST['total'],
+                        "start"=> $_POST['start'],
+                        "finish"=> $_POST['finish'],
+                        "note"=> $_POST['note'],
+                        "reason"=> $_POST['reason'],
+                        "solution"=> $_POST['solution']
+                        );
+            
+            if($this->rep->addNewReportModel($data)==true){
+                echo "success";
+            }else{
+                echo "failed";
+            }
+            
+        }
+        else 
+        {
+            echo "failed";
+        }
+    }
 
 
         public function Edit($id)
@@ -180,7 +180,7 @@ class DailyReport extends Controller
                             "id_user"=> $idReport,
                             "issue"=> $_POST['issue'],
                             "level"=> $_POST['level'],
-                            "mc"=> $_POST['mc'],
+                            "type"=> $_POST['type'],
                             "shift"=> $_POST['shift'],
                             "status"=> $_POST['status'],
                             "total"=> $_POST['total'],

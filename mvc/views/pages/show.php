@@ -29,13 +29,19 @@
             <thead>
                 <tr style="font-weight: bold;">
                    <td>No</td>
-                   <td>User</td>
-                   <td>Start Date</td>
-                   <td>End Date</td>
-                   <td>Approved by</td>
-                   <td>Approved/rejected</td>
-                   <td>Rejected by</td>
-                   <td>Total Time</td>
+                   <td>Date</td>
+                   <td>List of iusses</td>
+                   <td>Type</td>
+                   <td>Level</td>
+                   <td>Status</td>
+                   <td>Shift</td>
+                   <td>Start</td>
+                   <td>Finish</td>
+                   <td>Total</td>
+                   <td>Created by</td>
+                   <td>Note</td>
+                   <td>Reason</td>
+                   <td>Solution</td>
                    <td>Edit</td>
                 </tr>
             </thead>

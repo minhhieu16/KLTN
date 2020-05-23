@@ -30,18 +30,14 @@
             </div>
             <div class="col-lg-4">
                 <label for="type">Type:</label>
-                <select class="form-control" id="Type" name="Type" required>
+                <select class="form-control" id="type" name="type" required>
                     <?php
                         $type = json_decode($data["type"]);
                         foreach ($type as $val) {
-                            echo "<option value='".$val->name_type."'>".$val->name_type."</option>";
+                            echo "<option value='".$val->id_type."'>".$val->name_type."</option>";
                         }
                     ?>
                 </select>
-            </div>
-            <div class="col-lg-4">
-                <label for="type">MC:</label>
-                <input type="text" class="form-control" id="valMC" name="valMC" placeholder="MC">
             </div>
         </div>
         
@@ -143,7 +139,7 @@
   
   <div class="row">
     <div class="col-lg-1" id="button-submit">
-        <button type="submit" id="" class="btn btn-primary" disabled="">Add</button>
+        <button type="submit" id="" class="btn btn-primary" >Add</button>
     </div>
     <div class="col-lg-1">
         <a href="DailyReport/index" class="btn btn-danger" id="back">Back</a>

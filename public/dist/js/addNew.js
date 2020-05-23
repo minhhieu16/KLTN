@@ -1,11 +1,4 @@
 $(document).ready(function() {
-  //   $("#issue").change(function () {
-  //       var ID_Issue = $("#issue").val();
-		// $.post("DailyReport/ajaxChooseType", {id: ID_Issue}, function(data){
-		// 	$("#Type").html(data);
-			
-		// })
-  //   })
 
     $("#finishID").change(function () {
         var start= $("#startID").val();
@@ -49,16 +42,15 @@ $(document).ready(function() {
     })
 
     $("#formAdd").on('submit',function(e) {
+        
         e.preventDefault();
  
         $form = $(this);
-        
         submitAddReport($form);
     });
     function submitAddReport($form) {
-        var type = $("#Type").val();
+        var type = $("#type").val();
         var issue = $("#issue").val();
-        var valMC = $("#valMC").val();
         var level = $("#level").val();
         var status = $("#status").val();
         var shift = $("#shift").val();
@@ -68,16 +60,8 @@ $(document).ready(function() {
         var note = $("#note").val();
         var reason = $("#reason").val();
         var solution = $("#solution").val();
-        var temp = type + " " + valMC;
-        // if(type == 'MC' || type == 'Slot' || type == 'Roulette')
-        // {
-        //     temp = valMC;
-        // }
-        // else
-        // {
-        //     temp = type
-        // }
-
+        
+        
         $.ajax({
             url: $form.attr('action'),
             method: $form.attr('method'),
@@ -85,9 +69,9 @@ $(document).ready(function() {
                 newReport: "addReport",
                 issue: issue,
                 level: level,
-                mc: temp,
                 status: status,
                 shift: shift,
+                type: type,
                 total: total,
                 start: startID,
                 finish: finishID,
@@ -99,7 +83,7 @@ $(document).ready(function() {
                 
                 if(response=="success")
                 {
-                    //$('#notice').html('<p style="color: green; text-align:center;font-weight: bold;font-size: 20px;">Add successed!</p>');
+                    // $('#notice').html('<p style="color: green; text-align:center;font-weight: bold;font-size: 20px;">Add successed!</p>');
                     alert('Add Success');
                     window.location="index.php";
                 }
@@ -122,9 +106,8 @@ $(document).ready(function() {
     submitEditReport($form);
 });
 function submitEditReport($form) {
-    var type = $("#Type").val();
+    var type = $("#type").val();
     var issue = $("#issue").val();
-    var valMC = $("#valMC").val();
     var level = $("#level").val();
     var status = $("#status").val();
     var shift = $("#shift").val();
@@ -134,7 +117,6 @@ function submitEditReport($form) {
     var note = $("#note").val();
     var reason = $("#reason").val();
     var solution = $("#solution").val();
-    var temp = type + " " + valMC;
     
 
     $.ajax({
@@ -144,9 +126,9 @@ function submitEditReport($form) {
             editReport: "editReport",
             issue: issue,
             level: level,
-            mc: temp,
             status: status,
             shift: shift,
+            type: type,
             total: total,
             start: startID,
             finish: finishID,
