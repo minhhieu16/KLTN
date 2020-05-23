@@ -174,7 +174,7 @@ class HomeModel extends DB
 
     public function getName($idUser)
     {
-        $sql = "select DisplayName from ts_user where id_user = $idUser AND is_active = 1";
+        $sql = "select first_name, last_name from ts_user where id_user = $idUser AND is_active = 1";
         $res = mysqli_query($this->con,$sql);
         $arr = array();
         if(mysqli_num_rows($res)>0)

@@ -165,7 +165,7 @@ class DailyReport extends Controller
             }
             else {
                 $name = $this->rep->getName($arr[0]->id_user);
-                echo "<script language='javascript'>alert('You can not edit report of ".$name[0]['DisplayName']." ');</script>";
+                echo "<script language='javascript'>alert('You can not edit report of ".$name[0]['last_name']. " " . $name[0]['first_name'] ." ');</script>";
                 echo '<script language="javascript">location.href="../index";</script>';
             }
         }
