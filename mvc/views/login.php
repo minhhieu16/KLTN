@@ -10,7 +10,7 @@
 <head>
 	<title>Login KGIM</title>
 	<meta charset="UTF-8">
-	<base href="http://localhost/KLTN/">
+	<base href="http://192.168.1.5/KLTN/">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="./public/images/icons/favicon.ico"/>

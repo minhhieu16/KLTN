@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Daily Report - Vegas</title>
-    <base href="http://localhost/KLTN/">
+    <base href="http://192.168.1.5/KLTN/">
     <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="public/dist/css/sb-admin-2.css" rel="stylesheet">
