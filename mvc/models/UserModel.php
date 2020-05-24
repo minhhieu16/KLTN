@@ -3,15 +3,15 @@ class UserModel extends DB
 {
     public function loginModel($username, $password)
     {
-        $username = mysqli_real_escape_string($this->con,$username);
+        $username = $this->con->real_escape_string($username);
         $sql = "select * from ts_user where username = ?";
-        $stmt = mysqli_prepare($this->con, $sql);
-        mysqli_stmt_bind_param($stmt,'s',$username);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $getData = mysqli_fetch_assoc($result);
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param('s',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $getData = $result->fetch_assoc();
         
-        if( mysqli_num_rows($result) > 0 )
+        if( $result->num_rows > 0 )
         {
             if($getData['password'] == md5($password)) {            
                 $_SESSION['user']= $getData['username'];
@@ -29,13 +29,16 @@ class UserModel extends DB
         }
     }
     function oldPasswordMatched($password){
+        
 		$sql = "SELECT * FROM ts_user WHERE id_user = ?";
-		$stmt = mysqli_prepare($this->con, $sql);
-        mysqli_stmt_bind_param($stmt,'i',$_SESSION['ID']);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-		if( mysqli_num_rows($result) > 0 ){
-            $row = mysqli_fetch_assoc($result);
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param('i',$_SESSION['ID']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        /// -----------------------------------
+		if( $result->num_rows > 0 ){
+            $row = $result->fetch_assoc();
             $pass = $row['password'];
             if(  md5($password) == $pass  ){
                 return true;
@@ -57,10 +60,10 @@ class UserModel extends DB
         $id = $_SESSION['ID'];
         $pass = md5($npass);
         $sql = "update ts_user set password = ? where id_user = ? ";
-        $stmt = mysqli_prepare($this->con, $sql);
-        mysqli_stmt_bind_param($stmt,'si',$pass,$id);
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param('si',$pass,$id);
             
-        if(mysqli_stmt_execute($stmt) )
+        if($stmt->execute() )
         {
             return true;
         }

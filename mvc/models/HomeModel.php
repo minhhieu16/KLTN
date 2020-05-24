@@ -23,7 +23,7 @@ class HomeModel extends DB
             join ts_type ty on ty.id_type=dr.id_type
             WHERE dr.is_active = 1 ".$where." ORDER by dr.id_report DESC";
         $arr = array();
-        $row = mysqli_query($this->con,$sql);
+        $row = $this->con->query($sql);
         $i = 1;
         while($rows = mysqli_fetch_array($row))
         {

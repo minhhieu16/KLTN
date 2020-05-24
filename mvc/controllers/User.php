@@ -22,7 +22,10 @@ class User extends Controller
         {
             $user = $_POST['username'];
             $pass = $_POST['password'];
+            $user = stripslashes( $user );
+            
             $kq = $this->us->loginModel($user,$pass);
+            
             if($kq)
             {
                 echo '<script language="javascript">location.href="../DailyReport/index";</script>';
