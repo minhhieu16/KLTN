@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Daily Report - Vegas</title>
-    <base href="http://192.168.1.5/KLTN/">
+    <base href="https://shielded-wildwood-41045.herokuapp.com/">
     <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="public/dist/css/sb-admin-2.css" rel="stylesheet">
